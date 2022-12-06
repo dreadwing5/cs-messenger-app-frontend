@@ -25,7 +25,7 @@ export default function Messenger() {
     socket.current = io('ws://localhost:8900');
     socket.current.on('getMessage', (data) => {
       setArrivalMessage({
-        sender: data.senderId,
+        senderId: data.sender,
         text: data.text,
         sendTime: Date.now(),
       });
@@ -74,25 +74,22 @@ export default function Messenger() {
       }
     };
     getMessages();
+    return () => {
+      socket.current.emit('leave_room', currentChat?.conversationId);
+    };
   }, [currentChat]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const message = {
       senderId: user.data.user.userID,
       text: newMessage,
       conversationId: currentChat.conversationId,
     };
-
-    // const receiverId = currentChat.members.find(
-    //   (member) => member !== user._id
-    // );
-
     socket.current.emit('sendMessage', {
-      senderId: user.data.user.userID,
+      sender: user.data.user.userID,
       text: newMessage,
-      roomId: currentChat.conversationId,
+      room: currentChat.conversationId,
     });
 
     try {
