@@ -24,7 +24,7 @@ export default function Messenger() {
   const scrollRef = useRef();
   useEffect(() => {
     socket.current = io(SOCKET_URL);
-    socket.current?.on('getMessage', (data) => {
+    socket.current.on('getMessage', (data) => {
       setArrivalMessage({
         senderId: data.sender,
         text: data.text,
@@ -69,14 +69,14 @@ export default function Messenger() {
         );
         setMessages(res.data);
         currentChat &&
-          socket.current?.emit('join_room', currentChat.conversationId);
+          socket.current.emit('join_room', currentChat.conversationId);
       } catch (err) {
         console.log(err);
       }
     };
     getMessages();
     return () => {
-      socket.current?.emit('leave_room', currentChat?.conversationId);
+      socket.current.emit('leave_room', currentChat?.conversationId);
     };
   }, [currentChat]);
 
@@ -87,7 +87,7 @@ export default function Messenger() {
       text: newMessage,
       conversationId: currentChat.conversationId,
     };
-    socket.current?.emit('sendMessage', {
+    socket.current.emit('sendMessage', {
       sender: user.data.user.userID,
       text: newMessage,
       room: currentChat.conversationId,
