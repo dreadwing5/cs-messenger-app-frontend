@@ -1,10 +1,11 @@
 import './sidebar.css';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
-import ChatIcon from '@mui/icons-material/Chat';
+
 import { AuthContext } from '../../context/AuthContext';
 import { Link } from 'react-router-dom';
+
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import ChatIcon from '@mui/icons-material/Chat';
 
 import { useContext } from 'react';
 const Sidebar = () => {

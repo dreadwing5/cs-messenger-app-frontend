@@ -1,14 +1,12 @@
-import { useContext, useRef } from 'react';
 import './login.css';
+
+import { useContext, useRef } from 'react';
 import { loginCall } from '../../apiCalls';
 import { AuthContext } from '../../context/AuthContext';
 import CircularProgress from '@mui/material/CircularProgress';
-import TextField from '@mui/material/TextField';
-import Container from '@mui/material/Container';
 
 export default function Login() {
   const userId = useRef();
-  const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
   const handleClick = (e) => {
     e.preventDefault();
