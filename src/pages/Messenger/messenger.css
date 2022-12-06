@@ -4,7 +4,7 @@
   }
   
   .chatMenu {
-    flex: 3.5;
+    flex: 2;
   }
   
   .chatMenuInput {
@@ -39,8 +39,7 @@
   }
   
   .chatMessageInput {
-    width: 80%;
-    height: 90px;
+    width: 85%;
     padding: 10px;
   }
   
@@ -59,16 +58,18 @@
   }
   
   .chatMenuWrapper,
-  .chatBoxWrapper,
   .chatOnlineWrapper {
     padding: 10px;
     height: 100%;
   }
+
+  .chatBoxWrapper{
+    padding: 10px 50px;
+    height: 100%;
+  }
   
   .noConversationText {
-    position: absolute;
-    top: 10%;
-    font-size: 50px;
+    font-size: 40px;
     color: rgb(224, 220, 220);
     cursor: default;
   }
