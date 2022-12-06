@@ -7,12 +7,17 @@ import FullscreenExitOutlinedIcon from '@mui/icons-material/FullscreenExitOutlin
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@mui/icons-material/ChatBubbleOutlineOutlined';
 import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
   const { user } = useContext(AuthContext);
   const role = user.data.user.role;
   const userId = user.data.user.userID;
+  const { dispatch } = useContext(AuthContext);
+  const logoutHandler = () => {
+    dispatch({ type: 'LOGOUT' });
+  };
   return (
     <div className='navbar'>
       <div className='wrapper'>
@@ -39,6 +44,9 @@ const Navbar = () => {
               alt=''
               className='avatar'
             />
+          </div>
+          <div className='item' onClick={logoutHandler}>
+            <LogoutIcon className='icon' />
           </div>
         </div>
       </div>

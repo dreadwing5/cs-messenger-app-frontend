@@ -3,17 +3,14 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ChatIcon from '@mui/icons-material/Chat';
-import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 
 import { useContext } from 'react';
 const Sidebar = () => {
   const { dispatch } = useContext(AuthContext);
-  const navigate = useNavigate();
+
   const logoutHandler = () => {
-    console.log('logout');
     dispatch({ type: 'LOGOUT' });
-    navigate('/login');
   };
   return (
     <div className='sidebar'>

@@ -22,7 +22,7 @@ function App() {
         path='/login'
         element={user ? redirect(user.data.user) : <Login />}
       />
-      <Route path='/login' element=<Login /> />
+      <Route path='/login' element={<Login />} />
       <Route
         path='/messenger'
         element={!user ? <Navigate replace to='/' /> : <Messenger />}

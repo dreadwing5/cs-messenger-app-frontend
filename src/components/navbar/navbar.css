@@ -37,6 +37,7 @@
   align-items: center;
   margin-right: 20px;
   position: relative;
+  cursor: pointer;
 }
 .navbar .wrapper .items .item .icon {
   font-size: 20px;
