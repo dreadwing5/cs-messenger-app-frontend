@@ -1,2 +1,2 @@
-const BASE_URL = 'http://localhost:8000/api';
-export default BASE_URL;
+export const BASE_URL = import.meta.env.VITE_API_URL;
+export const SOCKET_URL = import.meta.env.VITE_SOCKET_URL;

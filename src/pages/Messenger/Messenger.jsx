@@ -1,14 +1,16 @@
 import './messenger.css';
-import Conversation from '../../components/conversations/Conversation';
-import Message from '../../components/message/Message';
-// import ChatOnline from '../../components/chatOnline/ChatOnline';
+
+import { io } from 'socket.io-client';
+import axios from 'axios';
+
 import { useContext, useEffect, useRef, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import axios from 'axios';
-import BASE_URL from '../../config';
-import { io } from 'socket.io-client';
+
+import { BASE_URL, SOCKET_URL } from '../../config';
+
 import Navbar from '../../components/navbar/Navbar';
-import { FormControlUnstyledContext } from '@mui/base';
+import Conversation from '../../components/conversations/Conversation';
+import Message from '../../components/message/Message';
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -16,14 +18,13 @@ export default function Messenger() {
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
   const [arrivalMessage, setArrivalMessage] = useState(null);
-  const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef();
+
   const { user } = useContext(AuthContext);
   const scrollRef = useRef();
-
   useEffect(() => {
-    socket.current = io('ws://localhost:8900');
-    socket.current.on('getMessage', (data) => {
+    socket.current = io(SOCKET_URL);
+    socket.current?.on('getMessage', (data) => {
       setArrivalMessage({
         senderId: data.sender,
         text: data.text,
@@ -68,14 +69,14 @@ export default function Messenger() {
         );
         setMessages(res.data);
         currentChat &&
-          socket.current.emit('join_room', currentChat.conversationId);
+          socket.current?.emit('join_room', currentChat.conversationId);
       } catch (err) {
         console.log(err);
       }
     };
     getMessages();
     return () => {
-      socket.current.emit('leave_room', currentChat?.conversationId);
+      socket.current?.emit('leave_room', currentChat?.conversationId);
     };
   }, [currentChat]);
 
@@ -86,7 +87,7 @@ export default function Messenger() {
       text: newMessage,
       conversationId: currentChat.conversationId,
     };
-    socket.current.emit('sendMessage', {
+    socket.current?.emit('sendMessage', {
       sender: user.data.user.userID,
       text: newMessage,
       room: currentChat.conversationId,
@@ -94,7 +95,6 @@ export default function Messenger() {
 
     try {
       const res = await axios.post(`${BASE_URL}/messages`, message);
-      console.log(res.data);
       setMessages([...messages, res.data]);
       setNewMessage('');
     } catch (err) {
