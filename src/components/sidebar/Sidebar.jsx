@@ -4,11 +4,11 @@ import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import ChatIcon from '@mui/icons-material/Chat';
 import { AuthContext } from '../../context/AuthContext';
+import { Link } from 'react-router-dom';
 
 import { useContext } from 'react';
 const Sidebar = () => {
   const { dispatch } = useContext(AuthContext);
-
   const logoutHandler = () => {
     dispatch({ type: 'LOGOUT' });
   };
@@ -22,8 +22,10 @@ const Sidebar = () => {
             <span>Dashboard</span>
           </li>
           <li>
-            <ChatIcon className='icon' />
-            <span>Chats</span>
+            <Link to='/messenger'>
+              <ChatIcon className='icon' />
+              <span>Chats</span>
+            </Link>
           </li>
           <li>
             <ExitToAppIcon className='icon' />
